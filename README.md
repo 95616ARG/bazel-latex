@@ -25,19 +25,19 @@ Note that the `setup_texlive.sh` script will write the install directory to
 `$HOME/.bazelrc` so the rules can automatically find the installation. If you
 ever move the installation, you will have to update `$HOME/.bazelrc`.
 
-For example, on Vimes, these steps corresponded to the following commands:
+For example, on an Ubuntu machine these steps corresponded to the following commands:
 ```bash
 cd ~/Downloads
 curl -OL http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2019/texlive2019-20190410.iso
-mkdir /home/masotoud/texlive-iso
-sudo mount -o loop -t iso9660 texlive2019-20190410.iso /home/masotoud/texlive-iso
-cd /home/masotoud/indra/latex/bazel-latex
-./setup_texlive.sh /home/masotoud/texlive-iso /home/masotoud/texlive-full-bazel
-sudo umount /home/masotoud/texlive-iso
-rm -rf /home/masotoud/texlive-iso
+mkdir /home/user/texlive-iso
+sudo mount -o loop -t iso9660 texlive2019-20190410.iso /home/user/texlive-iso
+cd /home/user/bazel-latex # Clone of this repository.
+./setup_texlive.sh /home/user/texlive-iso /home/user/texlive-full-bazel
+sudo umount /home/user/texlive-iso
+rm -rf /home/user/texlive-iso
 ```
-after which I could `bazel run main_getpdf` in
-`indra/latex/line_transformer_nips19`.
+after which you should be able to follow the rest of the instructions to build
+a paper.
 
 ### Step 2: Using the Bazel Rules
 Use the following `WORKSPACE` (modifying `name` as desired):
