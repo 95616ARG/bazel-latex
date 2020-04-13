@@ -45,9 +45,12 @@ Use the following `WORKSPACE` (modifying `name` as desired):
 ```python
 workspace(name = "your_workspace_name")
 
-local_repository(
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
     name = "bazel_latex",
-    path = "../bazel-latex",
+    commit = "{COMMIT_GOES_HERE}",
+    remote = "https://github.com/95616ARG/bazel-latex.git",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
