@@ -9,6 +9,12 @@ fi
 texlive_mount=$1
 install_dir=$2
 
+if [[ ! $install_dir =~ ^/ ]]
+then
+    echo "Please use an absolute path for the install directory."
+    exit 1
+fi
+
 read -p "Installing TeX Live. This will *OVERWRITE* $install_dir. Continue? [y/N] " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -46,4 +52,5 @@ then
     echo "run --define TEXLIVE_FULL_DIR=$install_dir" >> ~/.bazelrc
 else
     echo "Aborting."
+    exit 1
 fi
