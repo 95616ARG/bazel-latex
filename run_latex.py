@@ -1,5 +1,20 @@
 #!/usr/bin/env python
 
+"""Build a LaTeX project.
+
+Two invocations are supported:
+
+1) run_latex.py [texlive] [latexrun] [jobname] [mainfile].tex [outfile].pdf [sources...]
+2) run_latex.py [texlive] [latexrun] [jobname] [mainfile].tex -- [sources...] -- [command...]
+
+The first will build [outfile].pdf from [mainfile].tex and the [sources...].
+This is used to build the PDF file for the [name]_getpdf rules.
+
+The second will build the paper, place [jobname].bbl in the current directory,
+then call [command...]. This is used to build the bbl file for the
+[name]_getarxivable rules.
+"""
+
 import glob
 import os
 import shutil
