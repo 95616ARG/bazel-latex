@@ -76,14 +76,17 @@ latex_document(
 ```
 
 ### Step 3: Building your Paper
-Every `latex_document` rule creates three targets:
+Every `latex_document` rule creates multiple targets:
 
 * `bazel build [name]` will build the PDF, but it won't be directly accessible.
 * `bazel run [name]_view` will display the PDF in a graphical viewer.
 * `bazel run [name]_getpdf` will copy the PDF into the corresponding directory.
-* `bazel run [name]_getarxivable` will create an arXiv-ready version of the
+* `bazel build [name]_arxivable` will create an arXiv-ready version of the
   source using
-  [arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner).
+  [arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner),
+  but it won't be directly accessible in this directory.
+* `bazel run [name]_getarxivable` will copy the arXiv-ready version of the
+  source into the current directory.
 
 ## Goals
 These rules are designed to achieve the following goals:
