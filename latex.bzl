@@ -70,7 +70,7 @@ def latex_document(name, main, srcs = []):
 
     # Create an arXiv-ready version of the source.
     native.sh_binary(
-        name = name + "_arxivable",
+        name = name + "_getarxivable",
         srcs = ["@bazel_latex//:get_arxivable.sh"],
         data = srcs + ["@arxiv_latex_cleaner//:all"],
     )
