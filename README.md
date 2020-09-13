@@ -81,7 +81,7 @@ Every `latex_document` rule creates multiple targets:
 * `bazel build [name]` will build the PDF, but it won't be directly accessible.
 * `bazel run [name]_view` will display the PDF in a graphical viewer.
 * `bazel run [name]_getpdf` will copy the PDF into the corresponding directory.
-* `bazel run [name]_arxivable` will create an arXiv-ready version of the
+* `bazel build [name]_arxivable` will create an arXiv-ready version of the
   source using
   [arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner),
   but it won't be directly accessible in this directory.
