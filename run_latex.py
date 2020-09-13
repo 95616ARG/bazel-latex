@@ -8,6 +8,9 @@ import sys
 
 texlive, latexrun, job_name, main_file, output_file = sys.argv[1:6]
 sources = sys.argv[6:]
+if output_file == "--":
+    run_after = sources[sources.index("--"):][1:]
+    sources = sources[:sources.index("--")]
 
 env = dict(os.environ)
 # Generated files (eg. outputs of pdfcrop) are placed under bazel-out/*/bin.
@@ -40,4 +43,13 @@ return_code = subprocess.call(
 
 if return_code != 0:
     sys.exit(return_code)
-os.rename(job_name + ".pdf", output_file)
+
+if output_file != "--":
+    os.rename(job_name + ".pdf", output_file)
+else:
+    # Run the run_after script.
+    os.rename("latex.out/" + job_name + ".bbl", job_name + ".bbl")
+    return_code = subprocess.call(
+        args=run_after,
+        env=env,
+    )

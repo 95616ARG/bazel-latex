@@ -1,7 +1,7 @@
 exports_files([
     "run_latex.py",
     "view_pdf.sh",
-    "get_pdf.sh",
+    "get_file.sh",
     "get_arxivable.sh",
     "pdfcrop.sh",
 ])
