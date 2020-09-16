@@ -95,8 +95,8 @@ so:
 bazel run @bazel_latex//:dblpify -- main.bib
 ```
 Producing an output file `main.dblp.bib`. Note that this script assumes you
-have installed in your system Python the packages: `bibtexparser`, `pandas`,
-`requests`, and `beautifulsoup`. Our script is based on the wonderful
+have installed in your system the following Python packages: `bibtexparser`,
+`pandas`, `requests`, and `beautifulsoup`. Our script is based on the wonderful
 [dblp-pub](https://github.com/sebastianGehrmann/dblp-pub) library.
 
 ## Goals
