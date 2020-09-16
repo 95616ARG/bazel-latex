@@ -5,3 +5,15 @@ exports_files([
     "get_arxivable.sh",
     "pdfcrop.sh",
 ])
+
+py_binary(
+    name = "dblpify",
+    srcs = ["dblpify.py"],
+    deps = [":dblp"],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "dblp",
+    srcs = ["dblp.py"],
+)

@@ -88,6 +88,17 @@ Every `latex_document` rule creates multiple targets:
 * `bazel run [name]_getarxivable` will copy the arXiv-ready version of the
   source into the current directory.
 
+Additionally, a `dblpify` script is provided to interactively replace BibTeX
+entries with standardized DBLP ones. It can be run on a file `main.bib` like
+so:
+```bash
+bazel run @bazel_latex//:dblpify -- main.bib
+```
+Producing an output file `main.dblp.bib`. Note that this script assumes you
+have installed in your system the following Python packages: `bibtexparser`,
+`pandas`, `requests`, and `beautifulsoup`. Our script is based on the wonderful
+[dblp-pub](https://github.com/sebastianGehrmann/dblp-pub) library.
+
 ## Goals
 These rules are designed to achieve the following goals:
 
