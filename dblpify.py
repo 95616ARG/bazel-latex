@@ -12,8 +12,10 @@ def main(bib_file):
     # [name].bib -> [name].dblp.bib
     out_file = open(bib_file[:-4] + ".dblp.bib", "w")
 
-    for entry in bib_database.entries:
-        print("Paper:", entry["title"])
+    for i, entry in enumerate(bib_database.entries):
+        print("Entry:", i + 1, "/", len(bib_database.entries))
+        print("Title:", entry.get("title", "[None]"))
+        print("Author:", entry.get("author", "[None]"))
         bibtex_id = entry["ID"]
         results = search_dblp(entry["title"])
         if not results.empty:
@@ -44,19 +46,16 @@ def set_id(bibtex_entry, ID):
     return bibtex_entry[:first_bracket] + ID + bibtex_entry[first_comma:]
 
 def select_row(results):
-    print(results)
-    row = None
-    while True:
-        try:
-            row = int(input("Select a row: "))
-            if 0 <= row < len(results):
-                break
-            if row == -1:
-                return None
-        except ValueError:
-            continue
-    result = results.iloc[row]
-    return result
+    print(results[["Type", "Title", "Authors", "Where"]])
+    try:
+        row = int(input("Select a row (or -1 for none): "))
+        if 0 <= row < len(results):
+            result = results.iloc[row]
+            return result
+        if row == -1:
+            return None
+    except ValueError:
+        return select_row(results)
 
 if __name__ == "__main__":
     main(sys.argv[1])
