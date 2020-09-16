@@ -3,8 +3,8 @@
 import os
 import sys
 import urllib
-import dblp
 import bibtexparser
+import dblp
 
 def main(bib_file):
     """Standardize the file given by @bib_file relative to working directory.
@@ -22,15 +22,17 @@ def main(bib_file):
         print("Author:", entry.get("author", "[None]"))
         bibtex_id = entry["ID"]
         results = search_dblp(entry["title"])
+
         if not results.empty:
             result = select_row(results)
-            if result is None:
-                out_file.write(f"\n% COULD NOT FIND {entry['ID']}: {entry['title']} by {entry['author']} \n")
-                continue
-            bibtex_url = f"https://dblp.uni-trier.de/rec/{result.Id}.bib?param=1"
-        else:
-            out_file.write(f"\n% COULD NOT FIND {entry['ID']}: {entry['title']} by {entry['author']} \n")
+
+        if results.empty or result is None:
+            out_file.write("\n% COULD NOT FIND " + entry["ID"]
+                           + ": " + entry["title"]
+                           + " by " + entry["author"] + "} \n")
             continue
+
+        bibtex_url = f"https://dblp.uni-trier.de/rec/{result.Id}.bib?param=1"
         bibtex_entry = urllib.request.urlopen(bibtex_url).read().decode("utf-8")
         bibtex_entry = set_id(bibtex_entry, bibtex_id)
         print(bibtex_entry)
@@ -70,7 +72,8 @@ def select_row(results):
         if row == -1:
             return None
     except ValueError:
-        return select_row(results)
+        pass
+    return select_row(results)
 
 if __name__ == "__main__":
     main(sys.argv[1])
