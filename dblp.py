@@ -1,10 +1,9 @@
-"""
+"""DBLP web scraper.
 
 COPIED UNDER MIT LICENSE
 https://github.com/sebastianGehrmann/dblp-pub
 
 Slightly modified to support the 'Id' property.
-
 """
 from bs4 import BeautifulSoup
 import pandas as pd

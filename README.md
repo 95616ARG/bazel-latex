@@ -88,7 +88,7 @@ Every `latex_document` rule creates multiple targets:
 * `bazel run [name]_getarxivable` will copy the arXiv-ready version of the
   source into the current directory.
 
-Additionally, a `dblpify` script is provided to interactively replace BiBTeX
+Additionally, a `dblpify` script is provided to interactively replace BibTeX
 entries with standardized DBLP ones. It can be run on a file `main.bib` like
 so:
 ```bash
