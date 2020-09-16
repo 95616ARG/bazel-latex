@@ -1,12 +1,16 @@
+import os
+import sys
 import urllib
 import dblp
 import bibtexparser
 
-def main():
-    with open("main.bib", "r") as bibtex_file:
+def main(bib_file):
+    bib_file = os.environ["BUILD_WORKING_DIRECTORY"] + "/" + bib_file
+    with open(bib_file, "r") as bibtex_file:
         bib_database = bibtexparser.load(bibtex_file)
 
-    out_file = open("main.dblp.bib", "w")
+    # [name].bib -> [name].dblp.bib
+    out_file = open(bib_file[:-4] + ".dblp.bib", "w")
 
     for entry in bib_database.entries:
         print("Paper:", entry["title"])
@@ -55,4 +59,4 @@ def select_row(results):
     return result
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])
