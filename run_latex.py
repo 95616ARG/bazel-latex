@@ -21,6 +21,11 @@ import shutil
 import subprocess
 import sys
 
+# Copy any existing build cache here.
+cache_dir = "/tmp/bazel-latex.cache"
+if os.path.exists(cache_dir) and os.path.isdir(cache_dir):
+    shutil.copytree(cache_dir, "latex.out")
+
 texlive, latexrun, job_name, main_file, output_file = sys.argv[1:6]
 sources = sys.argv[6:]
 if output_file == "--":
@@ -55,6 +60,11 @@ return_code = subprocess.call(
     ],
     env=env,
 )
+
+# Copy back to the build cache.
+if os.path.exists(cache_dir):
+    shutil.rmtree(cache_dir)
+shutil.copytree("latex.out", cache_dir)
 
 if return_code != 0:
     sys.exit(return_code)
