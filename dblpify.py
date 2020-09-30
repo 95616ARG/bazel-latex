@@ -28,8 +28,8 @@ def main(bib_file):
 
         if results.empty or result is None:
             out_file.write("\n% COULD NOT FIND " + entry["ID"]
-                           + ": " + entry["title"]
-                           + " by " + entry["author"] + "} \n")
+                           + ": " + entry.get("title", "[None]")
+                           + " by " + entry.get("author", "[None]") + "} \n")
             continue
 
         bibtex_url = f"https://dblp.uni-trier.de/rec/{result.Id}.bib?param=1"
