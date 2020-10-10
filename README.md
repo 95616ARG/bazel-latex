@@ -74,6 +74,9 @@ latex_document(
     main = "main.tex",
 )
 ```
+By default, the `latex_document` rule will compiler the PDF with the `pdflatex`
+program. You can instruct it to use another compiler, such as `xelatex`, by
+passing the optional `compiler` option.
 
 ### Step 3: Building your Paper
 Every `latex_document` rule creates multiple targets:
