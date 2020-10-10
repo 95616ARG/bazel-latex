@@ -21,7 +21,7 @@ import shutil
 import subprocess
 import sys
 
-texlive, latexrun, job_name, main_file, output_file = sys.argv[1:6]
+texlive, latexrun, compiler, job_name, main_file, output_file = sys.argv[1:7]
 sources = sys.argv[6:]
 if output_file == "--":
     run_after = sources[sources.index("--"):][1:]
@@ -48,7 +48,7 @@ return_code = subprocess.call(
         "python3",
         latexrun,
         "--latex-args=-jobname=" + job_name,
-        "--latex-cmd=pdflatex",
+        "--latex-cmd=" + compiler,
         "--bibtex-cmd=bibtex",
         "-Wall",
         main_file,

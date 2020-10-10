@@ -15,6 +15,7 @@ def _latex_pdf_impl(ctx):
             ctx.files._run_script[0].path,
             texlive_path,
             ctx.files._latexrun[0].path,
+            ctx.attr.compiler,
             ctx.label.name,
             ctx.files.main[0].path,
             ctx.outputs.out.path,
@@ -30,6 +31,7 @@ _latex_pdf = rule(
     attrs = {
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
+        "compiler": attr.string(default = "pdflatex"),
         "_latexrun": attr.label(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
@@ -98,7 +100,7 @@ _arxivable = rule(
     implementation = _arxivable_impl,
 )
 
-def latex_document(name, main, srcs = []):
+def latex_document(name, main, srcs = [], compiler = "pdflatex"):
     """Given a TeX file, add rules for compiling and archiving it.
     """
 
@@ -107,6 +109,7 @@ def latex_document(name, main, srcs = []):
         name = name,
         srcs = srcs,
         main = main,
+        compiler = compiler,
     )
 
     # Convenience rule for viewing PDFs.
