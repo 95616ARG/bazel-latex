@@ -19,14 +19,6 @@ def latex_repositories():
     )
 
     http_archive(
-        name = "pdfcrop",
-        build_file_content = "exports_files([\"pdfcrop.pl\"])",
-        sha256 = "4226acd990b3a6db6f9e3bf8949e308b97fa74f8c404023bfb3ce598400a72a4",
-        strip_prefix = "pdfcrop",
-        url = "http://mirrors.ctan.org/support/pdfcrop.zip",
-    )
-
-    http_archive(
         name = "arxiv_latex_cleaner",
         build_file_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])""",
         sha256 = "770c65993c964405bb5362ee75039970434ef395872356980e470b6b044ac427",
