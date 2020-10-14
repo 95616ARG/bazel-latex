@@ -9,14 +9,12 @@ def _pdf_crop_impl(ctx):
         use_default_shell_env = True,
         arguments = [
             ctx.files._pdf_crop_wrapper[0].path,
-            ctx.files._pdf_crop_script[0].path,
             texlive_path,
             uncropped.path,
             ctx.outputs.output.path,
         ],
         inputs = depset(
-            direct = (ctx.files._pdf_crop_script + ctx.files._pdf_crop_wrapper +
-                      [uncropped]),
+            direct = (ctx.files._pdf_crop_wrapper + [uncropped]),
         ),
         outputs = [ctx.outputs.output],
     )
@@ -30,10 +28,6 @@ _pdf_crop = rule(
         "_pdf_crop_wrapper": attr.label(
             allow_files = True,
             default = "@bazel_latex//:pdfcrop.sh",
-        ),
-        "_pdf_crop_script": attr.label(
-            allow_files = True,
-            default = "@pdfcrop//:pdfcrop.pl",
         ),
     },
     implementation = _pdf_crop_impl,
