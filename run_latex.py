@@ -5,7 +5,7 @@
 Two invocations are supported:
 
 1) run_latex.py [texlive] [latexrun] [jobname] [mainfile].tex [outfile].pdf [sources...]
-2) run_latex.py [texlive] [latexrun] [jobname] [mainfile].tex -- [sources...] -- [command...]
+2) run_latex.py [texlive] [latexrun] [jobname] [mainfile].tex -- [command...] -- [sources...]
 
 The first will build [outfile].pdf from [mainfile].tex and the [sources...].
 This is used to build the PDF file for the [name]_getpdf rules.

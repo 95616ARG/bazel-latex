@@ -59,14 +59,14 @@ def _arxivable_impl(ctx):
             ctx.files._run_script[0].path,
             texlive_path,
             ctx.files._latexrun[0].path,
+            ctx.attr.compiler,
             ctx.files.main[0].path.replace(".tex", ""),
             ctx.files.main[0].path,
             "--",
-        ] + [src.path for src in ctx.files.srcs] + [
-            "--",
             ctx.files._arxiv_script[0].path,
             ctx.outputs.out.path,
-        ],
+            "--",
+        ] + [src.path for src in ctx.files.srcs],
         inputs = depset(
             direct = (ctx.files.main + ctx.files.srcs + ctx.files._latexrun +
                       ctx.files._run_script + ctx.files._arxiv_script +
@@ -79,6 +79,7 @@ _arxivable = rule(
     attrs = {
         "main": attr.label(allow_files = True),
         "srcs": attr.label_list(allow_files = True),
+        "compiler": attr.string(default = "pdflatex"),
         "_latexrun": attr.label(
             allow_files = True,
             default = "@bazel_latex_latexrun//:latexrun",
@@ -132,6 +133,7 @@ def latex_document(name, main, srcs = [], compiler = "pdflatex"):
         name = name + "_arxivable",
         srcs = srcs,
         main = main,
+        compiler = compiler,
     )
 
     # Copy the .tar.gz into the main working directory.
